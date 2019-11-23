@@ -24,6 +24,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidassistant.viewmodel.ContryViewModel
 import kotlin.collections.ArrayList
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import androidx.appcompat.app.ActionBar
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     var articleArrayList: ArrayList<InfornationRow> = ArrayList()
     internal var contryAdapter: ContryAdapter? = null
     var contryViewModel: ContryViewModel? = null
-
+    var actionBar : ActionBar ? =null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +47,7 @@ class MainActivity : AppCompatActivity() {
         val TAG: String = MainActivity::class.java.simpleName
         var context :Context = this
         var netconnector = NetConnector()
-
-
+         actionBar = supportActionBar
         if (netconnector.isConnectedToNetwork(context)) {
             // Show the connected screenn
             ll_progressbar.visibility = View.VISIBLE
@@ -80,9 +83,15 @@ class MainActivity : AppCompatActivity() {
           articleArrayList = InforamationContry.getInfornationRow()
             contryAdapter?.notifyDataSetChanged()
 
+            updateActionBarTital(InforamationContry.getuntryTital())
             setupRecyclerView()
         })
         contryAdapter?.notifyDataSetChanged()
+
+    }
+
+    private fun updateActionBarTital(getuntryTital: String?) {
+        actionBar!!.title = getuntryTital
 
     }
 
