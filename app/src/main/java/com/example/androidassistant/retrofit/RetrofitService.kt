@@ -1,12 +1,12 @@
-package com.example.androidassistant.retrofit;
+package com.example.androidassistant.retrofit
 
-import com.example.androidassistant.module.InforamationContry;
-import com.example.androidassistant.uitils.Urls;
+import com.example.androidassistant.module.InforamationContry
+import com.example.androidassistant.uitils.Urls
 
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+// used retrofit lab to get data and pars data using gson
  class RetrofitService {
 
 

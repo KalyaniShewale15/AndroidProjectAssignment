@@ -2,7 +2,7 @@ package com.example.androidassistant.uitils
 
 import android.util.Log
 
-
+// used for log  also have disable or enable log at one point function
 object AppLog {
 
     val ENABLE_LOG = false              //true

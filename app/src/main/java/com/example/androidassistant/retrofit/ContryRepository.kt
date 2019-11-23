@@ -8,15 +8,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
+// make call with the help of contryApi , RetrofitService  pars data with help of gson and send it back to call
 class ContryRepository {
 
 
     private val contryApi: ContryApi
 
+    // init call for initialization contryApi service
     init {
         contryApi = RetrofitService().cteateService(ContryApi::class.java)
     }
+
+    // get final data
      fun getData(): MutableLiveData<InforamationContry> {
         val newsData = MutableLiveData<InforamationContry>()
         contryApi.getData().enqueue(object : Callback<InforamationContry> {

@@ -41,40 +41,46 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Fresco.initialize(this);
+        Fresco.initialize(this)
         setContentView(com.example.androidassistant.R.layout.activity_ifol_ist)
 
         val TAG: String = MainActivity::class.java.simpleName
-        var context :Context = this
-        var netconnector = NetConnector()
+        val context :Context = this
+        val netconnector = NetConnector();
          actionBar = supportActionBar
+
+        // check Internet condition
+        // if it is presenrt then go ahead
+        // if no internet then  force to start internet
+
         if (netconnector.isConnectedToNetwork(context)) {
             // Show the connected screenn
             ll_progressbar.visibility = View.VISIBLE
-            //getDataCall()
+            // Call URI get all data
             getDataCfromRetrofit()
 
         } else {
             // Show disconnected screen
-            Toast.makeText(applicationContext,
-                " no net ", Toast.LENGTH_LONG).show()
+          /*  Toast.makeText(applicationContext,
+                " no net ", Toast.LENGTH_LONG).show()*/
             showNoInternetAlert()
             }
 
         // refresh data function call
-
         simple_swipe_refresh_layout.setOnRefreshListener( SwipeRefreshLayout.OnRefreshListener() {
 
             getDataCfromRetrofit()
             simple_swipe_refresh_layout.isRefreshing = false
 
             }
-        );
+        )
 }
 
+
+    // connection with main activity and view model
     private fun getDataCfromRetrofit() {
 
-        var contryViewModel: ContryViewModel = ViewModelProviders.of(this).get(
+        val contryViewModel: ContryViewModel = ViewModelProviders.of(this).get(
             ContryViewModel::class.java)
         contryViewModel.init()
 
@@ -89,12 +95,13 @@ class MainActivity : AppCompatActivity() {
         contryAdapter?.notifyDataSetChanged()
 
     }
-
+    // set Action bar title
     private fun updateActionBarTital(getuntryTital: String?) {
         actionBar!!.title = getuntryTital
 
     }
-
+// Set recycler view
+    // pass list to RecyclerView and show all information
     private fun setupRecyclerView() {
 
         ll_progressbar.visibility = View.GONE
@@ -115,6 +122,8 @@ class MainActivity : AppCompatActivity() {
         }
            }
 
+
+    //  no internet then  force to start internet  or quit app
     protected fun showNoInternetAlert() {
        val builder = AlertDialog.Builder(this)
        builder.setTitle(com.example.androidassistant.R.string.internet_alert_title)
@@ -133,13 +142,16 @@ class MainActivity : AppCompatActivity() {
        builder.create()
        builder.show()
     }
+
     // back button handaler
+    // want to quit app press 2 time back button
+
     private var doubleBackToExitPressedOnce = false
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
-            finishAffinity();
-            System.exit(0);
+            finishAffinity()
+            System.exit(0)
             return
         }
 
